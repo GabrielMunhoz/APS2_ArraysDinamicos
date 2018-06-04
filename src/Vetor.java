@@ -11,45 +11,65 @@ public class Vetor implements VetorD {
 	}
 	
 	@Override
-	public void inserefinal(int valor) {
-		indice+=1;
-		valores[indice] = valor;
+	public void insereFinal(int valor) {
+		valores[indice++] = valor;
 		
 	}
 
 	@Override
 	public void insereInicio(int valor) {
-		
+		int ini = 0;
+		moveFrente(ini);
+		criarEspaco();
+		valores[ini] = valor; 
 		
 	}
 
 	@Override
-	public void insere(int indice, int valor) {
+	public void inserePosicao(int indi, int valor) {
 		// TODO Auto-generated method stub
-		
+		if(isIndexValid(indi)) {
+			criarEspaco();
+			moveFrente(indi);
+			valores[indi] = valor;
+		}
 	}
 
 	@Override
 	public void get(int ind) {
-		// TODO Auto-generated method stub
+		
+		if(isIndexValid(ind)) {
+			System.out.println(valores[ind]);
+		}
 		
 	}
 
 	@Override
 	public void set(int ind, int valor) {
-		// TODO Auto-generated method stub
+		if(isIndexValid(ind)) {
+			valores[ind] = valor;
+		}
 		
 	}
 
 	@Override
 	public void removeFinal() {
-		// TODO Auto-generated method stub
+		if ( isIndexValid ( indice ) ) {
+	        indice -= indice;
+		}
+	}
+
+	private void moveTras(int index) {
+		
+		
 		
 	}
 
 	@Override
 	public void removeInicio() {
-		// TODO Auto-generated method stub
+		int ini = 0;
+		moveTras(ini);
+		
 		
 	}
 
@@ -80,9 +100,28 @@ public class Vetor implements VetorD {
 	}
 
 	@Override
-	public void criarespaco() {
-		// TODO Auto-generated method stub
+	public void criarEspaco() {
 		
+		if ( indice == valores.length ) {
+	       int  storage [] = new int[ valores.length * 2 ];
+	        for (int i = 0; i < indice; i = i++) {
+	            storage[i] = valores[i];
+	        valores = storage;
+	        }
+		}
+		else {
+			return;
+		}
 	}
-
+	
+	public void moveFrente(int index) {
+	    if ( isIndexValid ( index ) ) {
+	        for (int i = indice; i > index; i = i--) {
+	            valores[i] = valores[i - 1];
+	        }    		
+	    }
+	   }
+	public boolean isIndexValid ( int index ) {
+	    return ( index >= 0  ) && ( index < indice );    		
+	}   		
 }

@@ -1,9 +1,9 @@
 
 public interface VetorD {
 	
-	public void inserefinal(int valor);
+	public void insereFinal(int valor);
 	public void insereInicio(int valor);
-	public void insere(int indice, int valor);
+	public void inserePosicao(int indice, int valor);
 	public void get(int indice); //-> valor
 	public void set(int indice, int valor);
 	public void removeFinal();
@@ -12,5 +12,5 @@ public interface VetorD {
 	public int size();
 	public int capacity();
 	public boolean isEmpty();
-	public void criarespaco();
+	public void criarEspaco();
 }

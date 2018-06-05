@@ -12,6 +12,7 @@ public class Vetor implements VetorD {
 	
 	@Override
 	public void insereFinal(int valor) {
+		criarEspaco();
 		valores[indice++] = valor;
 		
 	}
@@ -61,8 +62,11 @@ public class Vetor implements VetorD {
 
 	private void moveTras(int index) {
 		
-		
-		
+		if ( isIndexValid ( index ) ) {
+	        for (int i = index + 1; i < indice; i++) {
+	            valores[i - 1] = valores[i];
+	        }
+		}
 	}
 
 	@Override
@@ -82,7 +86,7 @@ public class Vetor implements VetorD {
 	@Override
 	public int size() {
 		//retorna o número de elementos armazenados no vetor.
-		return (indice);
+		return indice;
 		
 	}
 

@@ -3,36 +3,35 @@ public class Vetor implements VetorD {
 	
 	int valores [];
 	int indice; 
+	int contador;
 	
 	public Vetor() {
-		valores = new int[10];
-		indice = -1;
-		
+		valores = new int[1];
+		contador = 0;
 	}
-	
 	@Override
 	public void insereFinal(int valor) {
 		criarEspaco();
-		valores[indice++] = valor;
-		
+		valores[this.contador] = valor;
+		contador++;
 	}
 
 	@Override
 	public void insereInicio(int valor) {
-		int ini = 0;
-		moveFrente(ini);
-		criarEspaco();
-		valores[ini] = valor; 
 		
+		inserePosicao(0,valor); 
 	}
 
 	@Override
 	public void inserePosicao(int indi, int valor) {
-		// TODO Auto-generated method stub
 		if(isIndexValid(indi)) {
 			criarEspaco();
 			moveFrente(indi);
 			valores[indi] = valor;
+			contador++;
+		}
+		else {
+			System.out.println("Indice invalido.");
 		}
 	}
 
@@ -40,7 +39,7 @@ public class Vetor implements VetorD {
 	public void get(int ind) {
 		
 		if(isIndexValid(ind)) {
-			System.out.println(valores[ind]);
+			System.out.println("int: "+valores[ind]);
 		}
 		
 	}
@@ -79,14 +78,13 @@ public class Vetor implements VetorD {
 
 	@Override
 	public void remove(int indice) {
-		// TODO Auto-generated method stub
+		
 		
 	}
 
 	@Override
 	public int size() {
-		//retorna o número de elementos armazenados no vetor.
-		return indice;
+		return valores.length;
 		
 	}
 
@@ -106,26 +104,26 @@ public class Vetor implements VetorD {
 	@Override
 	public void criarEspaco() {
 		
-		if ( indice == valores.length ) {
-	       int  storage [] = new int[ valores.length * 2 ];
-	        for (int i = 0; i < indice; i = i++) {
-	            storage[i] = valores[i];
-	        valores = storage;
-	        }
+		if(contador == valores.length -1) {
+			int aux[] = new int[valores.length*2];
+			for(int i =0 ; i< valores.length; i++) {
+				aux[i]=valores[i];
+			}
+			valores = aux;
+			
 		}
-		else {
-			return;
-		}
+		
 	}
 	
 	public void moveFrente(int index) {
 	    if ( isIndexValid ( index ) ) {
-	        for (int i = indice; i > index; i = i--) {
+	    	System.out.println("entrei");
+	        for (int i = contador; i > index; i = i- 1) {
 	            valores[i] = valores[i - 1];
 	        }    		
 	    }
 	   }
 	public boolean isIndexValid ( int index ) {
-	    return ( index >= 0  ) && ( index < indice );    		
+	    return ( index >= 0  ) && ( index < contador );    		
 	}   		
 }

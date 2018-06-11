@@ -10,7 +10,13 @@ public class Aplicacao {
 		t.insereFinal(7);
 		t.insereInicio(1);
 		t.insereInicio(2);
-		t.inserePosicao(8, 7);
+		t.inserePosicao(3, 7);
+		t.removeInicio();
+		t.removeInicio();
+		t.removeFinal();
+		t.removeFinal();
+		t.removeFinal();
+		t.remove(1);
 		t.set(3, 6);
 		t.get(0);
 		t.get(1);

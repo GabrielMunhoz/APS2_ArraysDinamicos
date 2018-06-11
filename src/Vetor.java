@@ -2,7 +2,7 @@
 public class Vetor implements VetorD {
 	
 	int valores [];
-	int indice; 
+	 
 	int contador;
 	
 	public Vetor() {
@@ -11,6 +11,7 @@ public class Vetor implements VetorD {
 	}
 	@Override
 	public void insereFinal(int valor) {
+		//insere proxima posicao livre
 		criarEspaco();
 		valores[this.contador] = valor;
 		contador++;
@@ -18,26 +19,35 @@ public class Vetor implements VetorD {
 
 	@Override
 	public void insereInicio(int valor) {
-		
+		//insere no inicio do vetor
 		inserePosicao(0,valor); 
 	}
 
 	@Override
-	public void inserePosicao(int indi, int valor) {
-		if(isIndexValid(indi)) {
+	public void inserePosicao(int ind, int valor)  {
+		//insere na posicao descrita  na 
+		try {
+		if(isIndexValid(ind)) {
 			criarEspaco();
-			moveFrente(indi);
-			valores[indi] = valor;
+			
+			moveFrente(ind);
+			
+			valores[ind] = valor;
+			
 			contador++;
 		}
 		else {
+			
 			System.out.println("Indice invalido.");
+			throw new ArrayIndexOutOfBoundsException();
+		}
+		}catch(Exception erro) {
+			System.out.println();
 		}
 	}
 
 	@Override
 	public void get(int ind) {
-		
 		if(isIndexValid(ind)) {
 			System.out.println("int: "+valores[ind]);
 		}
@@ -54,15 +64,13 @@ public class Vetor implements VetorD {
 
 	@Override
 	public void removeFinal() {
-		if ( isIndexValid ( indice ) ) {
-	        indice -= indice;
-		}
+		contador--;
 	}
 
 	private void moveTras(int index) {
 		
 		if ( isIndexValid ( index ) ) {
-	        for (int i = index + 1; i < indice; i++) {
+	        for (int i = index + 1; i < contador; i++) {
 	            valores[i - 1] = valores[i];
 	        }
 		}
@@ -78,13 +86,18 @@ public class Vetor implements VetorD {
 
 	@Override
 	public void remove(int indice) {
-		
+		if(isIndexValid(indice)) {
+			moveTras(indice);
+			contador--;
+			
+		}
 		
 	}
 
 	@Override
 	public int size() {
-		return valores.length;
+		//retorna o numero de elementos armazenados no vetor
+		return contador;
 		
 	}
 
@@ -98,12 +111,12 @@ public class Vetor implements VetorD {
 	@Override
 	public boolean isEmpty() {
 		// retorna "true" se o número de elementos for 0 (zero).
-		return (indice == -1 );
+		return (contador == 0 );
 	}
 
 	@Override
 	public void criarEspaco() {
-		
+		//Duplica o tamanho do array. 
 		if(contador == valores.length -1) {
 			int aux[] = new int[valores.length*2];
 			for(int i =0 ; i< valores.length; i++) {
@@ -117,12 +130,13 @@ public class Vetor implements VetorD {
 	
 	public void moveFrente(int index) {
 	    if ( isIndexValid ( index ) ) {
-	    	System.out.println("entrei");
+	    	
 	        for (int i = contador; i > index; i = i- 1) {
 	            valores[i] = valores[i - 1];
 	        }    		
 	    }
 	   }
+	
 	public boolean isIndexValid ( int index ) {
 	    return ( index >= 0  ) && ( index < contador );    		
 	}   		

@@ -1,9 +1,9 @@
-
+import java.lang.ArrayIndexOutOfBoundsException;
 public class Vetor implements VetorD {
 	
-	int valores [];
+	private int valores [];
 	 
-	int contador;
+	private int contador;
 	
 	public Vetor() {
 		valores = new int[1];
@@ -26,26 +26,22 @@ public class Vetor implements VetorD {
 	@Override
 	public void inserePosicao(int ind, int valor)  {
 		//insere na posicao descrita  na 
-		try {
-		if(isIndexValid(ind)) {
-			criarEspaco();
-			
-			moveFrente(ind);
-			
-			valores[ind] = valor;
-			
-			contador++;
-		}
-		else {
-			
-			System.out.println("Indice invalido.");
-			throw new ArrayIndexOutOfBoundsException();
-		}
-		}catch(Exception erro) {
-			System.out.println();
-		}
+		
+			if(isIndexValid(ind)) {
+				
+				criarEspaco();
+				
+				moveFrente(ind);
+				
+				valores[ind] = valor;
+				
+				contador++;
+			}
+		
+		
 	}
 
+	
 	@Override
 	public void get(int ind) {
 		if(isIndexValid(ind)) {
@@ -104,7 +100,7 @@ public class Vetor implements VetorD {
 	@Override
 	public int capacity() {
 		// retorna a capacidade de armazenamento do vetor.
-		return (valores.length -1);
+		return (valores.length-1);
 		
 	}
 
@@ -138,6 +134,16 @@ public class Vetor implements VetorD {
 	   }
 	
 	public boolean isIndexValid ( int index ) {
-	    return ( index >= 0  ) && ( index < contador );    		
+		try {
+			if(index<0) {throw new ArrayIndexOutOfBoundsException();}
+			
+			return ( index >= 0  ) &&  ( index < valores.length );    		
+			
+		}catch( ArrayIndexOutOfBoundsException e) {
+			
+			System.out.println("Erro: " + e);
+			
+			return false;
+		}
 	}   		
 }
